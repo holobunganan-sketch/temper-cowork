@@ -160,15 +160,23 @@ jobs:
       - name: Install Wails CLI
         run: |
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-          set +e
-          for i in 1 2 3; do
-            out=$(go install "github.com/wailsapp/wails/v2/cmd/wails@$(cat "$GITHUB_WORKSPACE/.wails-version")" 2>&1)
-            code=$?
-            if [ $code -eq 0 ]; then echo "wails install OK"; break; fi
-            echo "::error::wails install attempt $i failed (exit $code): $(echo "$out" | tail -5 | tr '\n' ' ')"
-            sleep 10
-          done
-          if [ $code -ne 0 ]; then echo "$out"; exit 1; fi
+          {
+            echo "### Wails install diagnosis"
+            echo "wails-version file: [$(cat "$GITHUB_WORKSPACE/.wails-version" | od -c | head -2)]"
+            echo "go version: $(go version)"
+            echo "GOPROXY: $(go env GOPROXY)"
+            set +e
+            for i in 1 2 3; do
+              echo "--- attempt $i ---"
+              go install "github.com/wailsapp/wails/v2/cmd/wails@$(cat "$GITHUB_WORKSPACE/.wails-version")" 2>&1
+              code=$?
+              echo "exit=$code"
+              if [ $code -eq 0 ]; then echo "WAILS_INSTALL_OK"; break; fi
+              sleep 10
+            done
+            echo "FINAL_EXIT=$code"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "${code:-1}" -ne 0 ]; then exit 1; fi
 
       - name: Desktop short tests
         run: go test -short -count=1 -timeout=15m .

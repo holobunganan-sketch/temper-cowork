@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -177,6 +178,7 @@ jobs:
         run: pnpm --dir frontend build
 
       - name: Desktop short tests
+        id: desktop-tests
         shell: bash
         run: |
           set +e
@@ -184,6 +186,31 @@ jobs:
           code=${PIPESTATUS[0]}
           echo "desktop tests exit=$code"
           exit $code
+
+      - name: Report desktop test failure
+        if: failure() && steps.desktop-tests.outcome == 'failure'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          awk '/^--- FAIL|^FAIL|panic:|error:/ {print NR": "$0}' /tmp/desktop-tests.log | head -60 > /tmp/fail-lines.txt
+          {
+            echo "## Desktop tests failed (run ${{ github.run_id }})"
+            echo '```'
+            cat /tmp/fail-lines.txt 2>/dev/null
+            echo '--- tail ---'
+            tail -100 /tmp/desktop-tests.log 2>/dev/null
+            echo '```'
+          } > /tmp/issue-body.md
+          jq -n --rawfile b /tmp/issue-body.md \
+            --arg t "CI: desktop tests failed (run ${{ github.run_id }})" \
+            '{title: $t, body: $b}' > /tmp/issue-payload.json
+          curl -sS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/issues" \
+            --data-binary @/tmp/issue-payload.json || echo "issue creation failed"
+          exit 0
 
       - name: Wails build
         run: wails build

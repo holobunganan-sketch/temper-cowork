@@ -202,9 +202,12 @@ jobs:
             tail -100 /tmp/desktop-tests.log 2>/dev/null
             echo '```'
           } > /tmp/issue-body.md
-          jq -n --rawfile b /tmp/issue-body.md \
-            --arg t "CI: desktop tests failed (run ${{ github.run_id }})" \
-            '{title: $t, body: $b}' > /tmp/issue-payload.json
+          node -e '
+            const fs = require("fs");
+            const title = "CI: desktop tests failed (run " + process.env.GITHUB_RUN_ID + ")";
+            const body = fs.readFileSync("/tmp/issue-body.md", "utf8");
+            fs.writeFileSync("/tmp/issue-payload.json", JSON.stringify({ title, body }));
+          '
           curl -sS -X POST \
             -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \

@@ -10,7 +10,14 @@
 
 ## 已登记 Patch
 
-(暂无 — 目标保持零 patch)
+### P1:check-motion-ci-contract.mjs 适配 Temper CI 结构
+
+- 文件:desktop/frontend/scripts/check-motion-ci-contract.mjs
+- 提交:900b452
+- 问题:契约脚本校验 Reasonix 的 CI job 结构(desktop/desktop-macos/desktop-windows/lint/site),Temper 重组 CI 为 test/sdk/frontend/desktop 后,`test:motion` 在 CI 中必然失败。
+- 修改:job 结构断言改为校验 Temper 的 frontend job 运行 `test:motion`/`test:transcript`、desktop job 运行 `wails build`;保留全部与 CI 结构无关的守护(源文件无 test-only WebView2 instrumentation、retired path 不存在、脚本内容必须包含特定套件)。
+- Regression:本地 `pnpm test:motion` 通过(9 passed,含契约自检)。
+- 后续 sync 注意:upstream 若改动该脚本,需重新评估 job 结构断言。
 
 ## 同步提醒
 

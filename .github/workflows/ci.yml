@@ -8,17 +8,12 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 env:
-  # Temper 运行时隔离:CI 绝不触碰真实用户数据(路径位于 runner 的 checkout 工作区内)
-  REASONIX_HOME: ${{ github.workspace }}/.ci/reasonix-home
-  REASONIX_STATE_HOME: ${{ github.workspace }}/.ci/reasonix-state
-  REASONIX_CACHE_HOME: ${{ github.workspace }}/.ci/reasonix-cache
   REASONIX_TELEMETRY: "0"
   DO_NOT_TRACK: "1"
 
@@ -50,6 +45,11 @@ jobs:
         run: go build ./...
 
       - name: test
+        env:
+          # Root-module 测试的运行时隔离(runner.temp 仅可在 step 级 env 使用)
+          REASONIX_HOME: ${{ runner.temp }}/reasonix-home
+          REASONIX_STATE_HOME: ${{ runner.temp }}/reasonix-state
+          REASONIX_CACHE_HOME: ${{ runner.temp }}/reasonix-cache
         run: go test ./...
 
       - name: lint
@@ -178,7 +178,6 @@ jobs:
         run: pnpm --dir frontend build
 
       - name: Desktop short tests
-        id: desktop-tests
         shell: bash
         run: |
           set +e
@@ -186,34 +185,6 @@ jobs:
           code=${PIPESTATUS[0]}
           echo "desktop tests exit=$code"
           exit $code
-
-      - name: Report desktop test failure
-        if: failure() && steps.desktop-tests.outcome == 'failure'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          awk '/^--- FAIL|^FAIL|panic:|error:/ {print NR": "$0}' /tmp/desktop-tests.log | head -60 > /tmp/fail-lines.txt
-          {
-            echo "## Desktop tests failed (run ${{ github.run_id }})"
-            echo '```'
-            cat /tmp/fail-lines.txt 2>/dev/null
-            echo '--- tail ---'
-            tail -100 /tmp/desktop-tests.log 2>/dev/null
-            echo '```'
-          } > /tmp/issue-body.md
-          node -e '
-            const fs = require("fs");
-            const title = "CI: desktop tests failed (run " + process.env.GITHUB_RUN_ID + ")";
-            const body = fs.readFileSync("/tmp/issue-body.md", "utf8");
-            fs.writeFileSync("/tmp/issue-payload.json", JSON.stringify({ title, body }));
-          '
-          curl -sS -X POST \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/issues" \
-            --data-binary @/tmp/issue-payload.json || echo "issue creation failed"
-          exit 0
 
       - name: Wails build
         run: wails build

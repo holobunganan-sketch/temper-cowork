@@ -96,6 +96,10 @@ func linuxWebviewGpuPolicy(pattern string) linux.WebviewGpuPolicy {
 }
 
 func main() {
+	// Temper 身份与数据隔离:必须在 Reasonix Boot / Config load 之前设置
+	// REASONIX_HOME / STATE_HOME / CACHE_HOME,确保不触碰正式 Reasonix 数据。
+	ApplyTemperIdentity()
+
 	// Detached macOS self-update child: wait for the old PID, hold the shared
 	// repair mutation lock, then swap the .app bundle. Must run before Wails.
 	if handled, exitCode := maybeRunMacUpdateHandoff(os.Args[1:]); handled {
@@ -107,7 +111,7 @@ func main() {
 	launch := parseDesktopLaunchArgs(os.Args[1:])
 
 	app := NewApp()
-	title := "Reasonix"
+	title := TemperDisplayName
 	singleInstance := singleInstanceLock(app)
 	appMenu := app.createAppMenu()
 	dragAndDrop := &options.DragAndDrop{EnableFileDrop: true}
@@ -209,7 +213,7 @@ func main() {
 			WebviewGpuIsDisabled: windowsWebview2GPUDisabled(),
 		},
 		Linux: &linux.Options{
-			ProgramName: "Reasonix",
+			ProgramName: TemperDisplayName,
 			// WebKitGTK GPU compositing is inconsistent across distros/drivers and
 			// is the one real cross-platform rough edge for a Go+webview stack:
 			// "always" can yield blank or flickering webviews on some setups, so

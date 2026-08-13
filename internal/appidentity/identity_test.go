@@ -6,8 +6,8 @@ import (
 )
 
 func TestAppUserModelIDIsStableAndVersionIndependent(t *testing.T) {
-	if AppUserModelID != "Reasonix" {
-		t.Fatalf("AppUserModelID = %q, want stable current-generation identity %q", AppUserModelID, "Reasonix")
+	if AppUserModelID != "Temper.Cowork.Desktop" {
+		t.Fatalf("AppUserModelID = %q, want stable current-generation identity %q", AppUserModelID, "Temper.Cowork.Desktop")
 	}
 	if strings.ContainsAny(AppUserModelID, " \t\r\n") || len(AppUserModelID) > 128 {
 		t.Fatalf("invalid AppUserModelID %q", AppUserModelID)

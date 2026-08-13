@@ -2,47 +2,29 @@
 
 ## 正在执行
 
-**PHASE A — Bootstrap(A05→A11)**
+**PHASE A — Bootstrap(A07→A11)**
 
-### A05 导入 Reasonix Source Snapshot — DONE
-- `git archive` 从 pinned SHA `49f24d1` 导出 tar,解压到 Temper 目录(保留 Master,未带 Reasonix .git)。
+### A01-A06 — DONE
+- 本地检查 / 远端检查 / Reasonix reference 克隆(baseline 49f24d1)/ baseline 全量验证 / source snapshot 导入 / 基础设施清理。
 
-### A06 清理 Reasonix 仓库基础设施 — DONE
-- 已删除:.signpath/ site/ workers/ npm/ release-notes/ .goreleaser.yaml
-- workflows 仅保留 ci.yml(后续重建 Temper 版本)
-- 删除 Reasonix release/signpath/npm 相关 scripts 与 docs(RELEASING/SIGNPATH/production_checklist)
+### A07 项目控制文件 — DONE
+- AGENTS.md、docs/agent/*、docs/upstream/*、docs/product/*、docs/parity/REASONIX_PARITY.md、docs/spec/TEMPER_V0.3.0_MASTER_BUILD.md。
 
-### A07 项目控制文件 — IN_PROGRESS
-- 已创建:AGENTS.md、docs/agent/EXECUTOR_RULES.md、docs/agent/BUILD_STATE.md
-- 待创建:
-  - docs/agent/CURRENT_TASK.md(本文件)
-  - docs/agent/RESUME_PROMPT.md
-  - docs/upstream/REASONIX_BASELINE.md
-  - docs/upstream/REASONIX_PATCHES.md
-  - docs/upstream/REASONIX_SYNC.md
-  - docs/product/PRODUCT.md
-  - docs/product/ARCHITECTURE.md
-  - docs/product/QUALITY.md
-  - docs/product/SECURITY.md
-  - docs/product/NETWORK_AUDIT.md
-  - docs/product/RELEASE.md
-  - docs/parity/REASONIX_PARITY.md
-  - docs/spec/TEMPER_V0.3.0_MASTER_BUILD.md(已复制 ✓)
+### A08 Git init — DONE
+- main 分支;origin = temper-cowork;upstream = DeepSeek-Reasonix。
 
-### A08 Git init — PENDING
-- .git 已存在(main 分支,origin 已配),需补 upstream remote。
+### A09 License / Attribution — DONE
+- THIRD_PARTY_NOTICES.md。
 
-### A09 License / Attribution — PENDING
-- THIRD_PARTY_NOTICES.md
+### A10 初始 CI — DONE
+- .github/workflows/ci.yml:test/sdk/frontend/desktop 四 job,含运行时隔离 env。
+- 已修复:workflow env 上下文、motion 契约脚本适配(P1 patch)、.wails-version CRLF。
 
-### A10 初始 CI — PENDING
-- .github/workflows/ci.yml(Temper 版)
-
-### A11 First push — PENDING
-- git add . / commit / push -u origin main / 等 CI
+### A11 First push — DONE
+- 已推送 main,CI 全绿(run 31691831499)。
 
 ## 下一步
 
-1. 完成 A07 剩余控制文件
-2. A08 配置 upstream
-3. A09-A11
+1. 等 f861030 最终 CI green(清理诊断步骤后的复跑)
+2. 签收 PHASE A
+3. 创建 milestone/01-identity-isolation 分支 → PHASE B

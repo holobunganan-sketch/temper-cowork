@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -158,25 +159,34 @@ jobs:
           cache-dependency-path: desktop/frontend/pnpm-lock.yaml
 
       - name: Install Wails CLI
+        id: wails-install
         run: |
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          set +e
+          go install "github.com/wailsapp/wails/v2/cmd/wails@$(cat "$GITHUB_WORKSPACE/.wails-version")" 2>&1 | tee /tmp/wails-install.log
+          code=${PIPESTATUS[0]}
+          echo "WAILS_INSTALL_EXIT=$code" >> "$GITHUB_ENV"
+          echo "wails-version-bytes: $(od -c "$GITHUB_WORKSPACE/.wails-version" | head -1)"
+          echo "go version: $(go version)"
+          echo "go env: $(go env GOOS GOARCH GOPROXY GOTOOLCHAIN)"
+          exit $code
+
+      - name: Report wails install failure
+        if: failure() && steps.wails-install.outcome == 'failure'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
           {
-            echo "### Wails install diagnosis"
-            echo "wails-version file: [$(cat "$GITHUB_WORKSPACE/.wails-version" | od -c | head -2)]"
-            echo "go version: $(go version)"
-            echo "GOPROXY: $(go env GOPROXY)"
-            set +e
-            for i in 1 2 3; do
-              echo "--- attempt $i ---"
-              go install "github.com/wailsapp/wails/v2/cmd/wails@$(cat "$GITHUB_WORKSPACE/.wails-version")" 2>&1
-              code=$?
-              echo "exit=$code"
-              if [ $code -eq 0 ]; then echo "WAILS_INSTALL_OK"; break; fi
-              sleep 10
-            done
-            echo "FINAL_EXIT=$code"
-          } >> "$GITHUB_STEP_SUMMARY"
-          if [ "${code:-1}" -ne 0 ]; then exit 1; fi
+            echo "## Wails install failed (run ${{ github.run_id }})"
+            echo '```'
+            cat /tmp/wails-install.log 2>/dev/null | tail -40
+            echo '```'
+          } > /tmp/wails-issue.md
+          gh issue create --repo "${{ github.repository }}" \
+            --title "CI: wails install failed (run ${{ github.run_id }})" \
+            --body-file /tmp/wails-issue.md 2>&1 || echo "issue creation failed"
+          exit 0
 
       - name: Desktop short tests
         run: go test -short -count=1 -timeout=15m .

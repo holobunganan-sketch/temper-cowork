@@ -4,14 +4,14 @@
 
 ## 当前阶段
 
-**PHASE A — Bootstrap(接近完成,等待最终 CI green)**
+**PHASE A — Bootstrap(DONE ✅ CI 全绿)**
 
 ## 里程碑进度
 
 | Phase | 内容 | 状态 | 备注 |
 |-------|------|------|------|
-| A | Bootstrap(基线导入/控制文件/CI/首推) | CI_VERIFIED | main CI 全绿(run 31691831499) |
-| B | 身份与数据隔离 | PENDING | |
+| A | Bootstrap(基线导入/控制文件/CI/首推) | DONE | main CI 全绿(run 31722439468,4 jobs success) |
+| B | 身份与数据隔离 | NEXT | 创建 milestone/01-identity-isolation |
 | C | Reasonix 功能 Parity | PENDING | |
 | D | CoWork Store | PENDING | |
 | E | Project + Chat | PENDING | |
@@ -34,17 +34,27 @@
 - Wails v2.13.0;Go 1.26.5;Node 26.7.0;pnpm 10.34.5
 - 本地工具链位于 `C:\Myfolder\.toolchain\`(Go / Node)
 - GitHub:origin = holobunganan-sketch/temper-cowork;upstream = esengine/DeepSeek-Reasonix
-- main 分支已推送,Temper CI(test/sdk/frontend/desktop)全绿
+- main 分支 CI 全绿:test / sdk / frontend / desktop 全部 success
 
 ## 已验证(带证据)
 
 - [x] Reasonix `go test ./...`(环境修正后) — 除 Windows symlink 特权相关测试外全绿
 - [x] `go vet ./...` — 通过
 - [x] golangci-lint v2.12.2 — 0 issues
-- [x] desktop `go test -short .` — 通过
+- [x] desktop `go test -short .` — 通过(本地 + CI)
 - [x] frontend typecheck / CI 测试脚本 / build — 通过
 - [x] `wails build` — 成功
-- [x] Temper CI 全绿(run 31691831499:test/sdk/frontend/desktop 全部 success)
+- [x] Temper CI 全绿(run 31722439468:test/sdk/frontend/desktop 全部 success)
+
+## CI 修复记录(PHASE A)
+
+1. workflow env 用 runner.temp 非法 → 改为 step 级 env(仅 root test job)
+2. check-motion-ci-contract.mjs 适配 Temper CI 结构(P1 patch)
+3. .wails-version CRLF → .gitattributes 强制 LF
+4. desktop/build/windows/icon.ico 未被跟踪 → git add -f
+5. desktop 打包脚本(desktop-build.sh / package-windows-desktop.sh / verify-windows-portable.sh)被 A06 误删 → 从 baseline 恢复
+6. frontend build 必须先于 desktop tests(go:embed all:frontend/dist)
+7. workflow 级 REASONIX_HOME 破坏 desktop 测试(93 failures)→ 只对 root test 步骤设置隔离
 
 ## 已知偏差与风险
 

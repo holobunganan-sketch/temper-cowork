@@ -165,7 +165,6 @@ jobs:
             echo "wails install attempt $i failed, retrying..."
             sleep 10
           done
-          wails version
 
       - name: Desktop short tests
         run: go test -short -count=1 -timeout=15m .

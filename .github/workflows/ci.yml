@@ -14,10 +14,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # Temper 运行时隔离:CI 绝不触碰真实用户数据
-  REASONIX_HOME: ${{ runner.temp }}/reasonix-home
-  REASONIX_STATE_HOME: ${{ runner.temp }}/reasonix-state
-  REASONIX_CACHE_HOME: ${{ runner.temp }}/reasonix-cache
+  # Temper 运行时隔离:CI 绝不触碰真实用户数据(路径位于 runner 的 checkout 工作区内)
+  REASONIX_HOME: ${{ github.workspace }}/.ci/reasonix-home
+  REASONIX_STATE_HOME: ${{ github.workspace }}/.ci/reasonix-state
+  REASONIX_CACHE_HOME: ${{ github.workspace }}/.ci/reasonix-cache
   REASONIX_TELEMETRY: "0"
   DO_NOT_TRACK: "1"
 

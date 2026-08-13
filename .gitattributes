@@ -27,3 +27,5 @@
 .githooks/** text eol=lf
 benchmarks/**/*.sh text eol=lf
 *.md whitespace=-trailing-space
+.wails-version text eol=lf
+.golangci-version text eol=lf

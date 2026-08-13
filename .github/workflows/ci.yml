@@ -160,7 +160,6 @@ jobs:
       - name: Install Wails CLI
         run: |
           echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
-          go env -w GOPROXY=https://goproxy.cn,direct
           for i in 1 2 3; do
             go install "github.com/wailsapp/wails/v2/cmd/wails@$(cat "$GITHUB_WORKSPACE/.wails-version")" && break
             echo "wails install attempt $i failed, retrying..."

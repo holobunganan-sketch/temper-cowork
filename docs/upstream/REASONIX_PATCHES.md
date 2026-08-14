@@ -36,6 +36,14 @@
 - 修改:budget 423.5 → 424.5 KiB(注释说明 Temper 品牌注入),仍保留增长门禁。
 - 后续 sync 注意:upstream 若收紧 budget 需重新评估。
 
+### P4:locale chunk budget 微调容纳 Temper 文案
+
+- 文件:desktop/frontend/scripts/check-bundle-budget.mjs
+- 提交:milestone/11-i18n-windows(PHASE L)
+- 问题:Temper 7 条 CoWork 文案加入 zh/zh-TW,zh-TW chunk 达 55.5 KiB 卡在 Reasonix 硬预算边界。
+- 修改:zh-TW 55.5 → 56.0,zh 54.75 → 55.0 KiB。
+- 后续 sync 注意:upstream 若收紧 budget 需重新评估。
+
 ## 同步提醒
 
 在 REASONIX_SYNC.md 中跟踪:本分支与 upstream main-v2 的偏差(diff 计数)。任何 patch 都会增加后续 sync 的手动成本。

@@ -3278,4 +3278,13 @@ export const zh: Record<DictKey, string> = {
   "mock.changedFile2Prompt": "记录项目上下文",
   "mock.changedFile1Path": "docs/dev-standard.md",
   "mock.changedFile2Path": ".reasonix/project.md",
+
+  // ── Temper CoWork ──
+  "temper.works": "工作",
+  "temper.workTitlePlaceholder": "工作标题",
+  "temper.workGoalPlaceholder": "目标(可选)",
+  "temper.createWork": "创建工作",
+  "temper.creatingWork": "创建中…",
+  "temper.noWorksYet": "还没有正式工作,创建一个开始。",
+  "temper.projectLabel": "工作 — {project}",
 };

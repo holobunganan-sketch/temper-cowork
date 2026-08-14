@@ -3274,4 +3274,13 @@ export const zhTW: Record<DictKey, string> = {
   "performanceReport.dismiss": "關閉",
   "performanceReport.privacyNote": "上傳前桌面端會移除路徑與密鑰；診斷資訊只用於記錄耗時、記憶體、網路狀態、取樣到的應用函式名、近期 breadcrumbs、應用版本和作業系統。",
   "mock.topicSysException": "異常處理與恢復演練",
+
+  // ── Temper CoWork ──
+  "temper.works": "工作",
+  "temper.workTitlePlaceholder": "工作標題",
+  "temper.workGoalPlaceholder": "目標(選填)",
+  "temper.createWork": "建立工作",
+  "temper.creatingWork": "建立中…",
+  "temper.noWorksYet": "還沒有正式工作,建立一個開始。",
+  "temper.projectLabel": "工作 — {project}",
 };

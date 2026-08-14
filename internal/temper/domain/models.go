@@ -38,20 +38,20 @@ const (
 // Work 是一份正式工作。goal 是用户意图;reasonixSessionRef 关联 Reasonix
 // Session;finalArtifactID 指向完成时的最终交付物。
 type Work struct {
-	ID                string     `json:"id"`
-	ProjectID         string     `json:"projectId"`
-	Title             string     `json:"title"`
-	Goal              string     `json:"goal"`
-	Status            WorkStatus `json:"status"`
-	ReasonixSessionRef string    `json:"reasonixSessionRef,omitempty"`
-	ModelRef          string     `json:"modelRef,omitempty"`
-	QualityProfile    string     `json:"qualityProfile,omitempty"`
-	TaskContract      string     `json:"taskContract,omitempty"`
-	CreatedAt         time.Time  `json:"createdAt"`
-	UpdatedAt         time.Time  `json:"updatedAt"`
-	StartedAt         *time.Time `json:"startedAt,omitempty"`
-	CompletedAt       *time.Time `json:"completedAt,omitempty"`
-	FinalArtifactID   string     `json:"finalArtifactId,omitempty"`
+	ID                 string     `json:"id"`
+	ProjectID          string     `json:"projectId"`
+	Title              string     `json:"title"`
+	Goal               string     `json:"goal"`
+	Status             WorkStatus `json:"status"`
+	ReasonixSessionRef string     `json:"reasonixSessionRef,omitempty"`
+	ModelRef           string     `json:"modelRef,omitempty"`
+	QualityProfile     string     `json:"qualityProfile,omitempty"`
+	TaskContract       string     `json:"taskContract,omitempty"`
+	CreatedAt          time.Time  `json:"createdAt"`
+	UpdatedAt          time.Time  `json:"updatedAt"`
+	StartedAt          *time.Time `json:"startedAt,omitempty"`
+	CompletedAt        *time.Time `json:"completedAt,omitempty"`
+	FinalArtifactID    string     `json:"finalArtifactId,omitempty"`
 }
 
 // WorkEvent 记录 Work 生命周期中的事件(状态变更、证据登记、决策等)。
@@ -76,13 +76,13 @@ type Evidence struct {
 
 // Decision 是正式工作中的一个决策。
 type Decision struct {
-	ID          string    `json:"id"`
-	WorkID      string    `json:"workId"`
-	Decision    string    `json:"decision"`
-	Rationale   string    `json:"rationale"`
-	Alternatives string   `json:"alternatives,omitempty"`
-	EvidenceIDs []string  `json:"evidenceIds,omitempty"`
-	Timestamp   time.Time `json:"timestamp"`
+	ID           string    `json:"id"`
+	WorkID       string    `json:"workId"`
+	Decision     string    `json:"decision"`
+	Rationale    string    `json:"rationale"`
+	Alternatives string    `json:"alternatives,omitempty"`
+	EvidenceIDs  []string  `json:"evidenceIds,omitempty"`
+	Timestamp    time.Time `json:"timestamp"`
 }
 
 // ArtifactKind 是交付物的稳定类型。
@@ -129,12 +129,12 @@ const (
 
 // AcceptanceResult 记录单条验收标准的评估结果。
 type AcceptanceResult struct {
-	ID           int64            `json:"id"`
-	WorkID       string           `json:"workId"`
-	Criterion    string           `json:"criterion"`
-	Status       AcceptanceStatus `json:"status"`
-	EvidenceRef  string           `json:"evidenceRef,omitempty"`
-	EvaluatedAt  time.Time        `json:"evaluatedAt"`
+	ID          int64            `json:"id"`
+	WorkID      string           `json:"workId"`
+	Criterion   string           `json:"criterion"`
+	Status      AcceptanceStatus `json:"status"`
+	EvidenceRef string           `json:"evidenceRef,omitempty"`
+	EvaluatedAt time.Time        `json:"evaluatedAt"`
 }
 
 // QualityRun 是一次质量门(Validation/Review)运行。

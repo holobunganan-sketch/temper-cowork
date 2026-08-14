@@ -4,7 +4,7 @@
 
 ## 当前阶段
 
-**PHASE G — CoWork Tools / Evidence / Decision(进行中,milestone/06-cowork-tools)**
+**PHASE H — Artifact / Quality(进行中,milestone/07-artifact-quality)**
 
 ## 里程碑进度
 
@@ -16,7 +16,8 @@
 | D | CoWork Store | DONE | PR #7 merged(e93d1a5) |
 | E | Project + Chat | DONE | PR #8 merged(d7e3e10) |
 | F | Formal Work | DONE | PR #9 merged(2f2e92f) |
-| G | CoWork Tools / Evidence / Decision | IN_PROGRESS | milestone/06-cowork-tools |
+| G | CoWork Tools / Evidence / Decision | DONE | PR #10 merged(d08a41f) |
+| H | Artifact / Quality | IN_PROGRESS | milestone/07-artifact-quality |
 | H | Artifact / Quality | PENDING | |
 | I | Temper UI 基础 | PENDING | |
 | J | Chat / Work / Advanced UI | PENDING | |

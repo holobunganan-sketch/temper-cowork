@@ -17,18 +17,16 @@
 | E | Project + Chat | DONE | PR #8 merged(d7e3e10) |
 | F | Formal Work | DONE | PR #9 merged(2f2e92f) |
 | G | CoWork Tools / Evidence / Decision | DONE | PR #10 merged(d08a41f) |
-| H | Artifact / Quality | IN_PROGRESS | milestone/07-artifact-quality |
-| H | Artifact / Quality | PENDING | |
-| I | Temper UI 基础 | PENDING | |
-| J | Chat / Work / Advanced UI | PENDING | |
-| K | Runtime Observability | PENDING | |
-| L | i18n / Windows UX | PENDING | |
-| M | Production E2E | PENDING | |
-| N | Defender | PENDING | |
-| O | MSIX Packaging | PENDING | |
-| P | GitHub MSIX Release | PENDING | |
-| Q | RC / v0.3.0 正式 Release | PENDING | |
-
+| H | Artifact / Quality | DONE | PR #11 merged(1056d11) |
+| I | Temper UI 基础 | DONE | PR #12 merged(fbe7709) |
+| J | Chat / Work / Advanced UI | DONE | PR #13 merged(f1dbf6a) |
+| K | Runtime Observability | DONE | PR #14 merged(5790f2c) |
+| L | i18n / Windows UX | DONE | PR #15 merged(ca69d1f) |
+| M | Production E2E | DONE | PR #16 merged(5a6a541) |
+| N | Defender | DONE | PR #17 merged(2847e9c) |
+| O | MSIX Packaging | DONE | PR #18 merged(4868e40) |
+| P | GitHub MSIX Release | DONE | PR #19 merged(3fd2d53) |
+| Q | RC / v0.3.0 正式 Release | IN_PROGRESS | milestone/16-rc-release |
 ## 关键事实
 
 - REASONIX_BASELINE_SHA = `49f24d19702c9542ab50500d590237dc872c4d58`(main-v2, 2026-08-13)

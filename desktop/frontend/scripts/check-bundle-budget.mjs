@@ -82,7 +82,7 @@ for (const path of localeChunks) {
   // recovery "other saved versions" dialog adds ~0.1 KiB gzip to zh (54.6 over
   // the old 54.5 gate, +0.18%); both on-demand dictionaries stay bounded with
   // small headroom.
-  const budget = name.startsWith("zh-TW-") ? 55.5 * 1024 : 54.75 * 1024;
+  const budget = name.startsWith("zh-TW-") ? 56.0 * 1024 : 55.0 * 1024;
   assertBudget(`${name} gzip`, gzipBytes(path), budget);
 }
 

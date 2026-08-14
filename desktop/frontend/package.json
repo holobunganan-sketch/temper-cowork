@@ -18,6 +18,7 @@
     "test:task-monitor": "tsx src/components/TaskMonitorPanel.test.tsx && tsx src/__tests__/task-monitor-navigation.test.ts",
     "test:temper-work": "tsx src/components/TemperWorkPanel.test.tsx",
     "test:temper-observability": "tsx src/__tests__/temper-observability.test.tsx",
+    "test:temper-i18n": "tsx src/__tests__/temper-i18n.test.ts",
     "test:workspace": "tsx src/__tests__/workspace-refresh-store.test.ts && tsx src/__tests__/workspace-changes-errors.test.tsx && tsx src/__tests__/workspace-context-menu.test.tsx",
     "test:settings-responsive": "tsx src/__tests__/settings-responsive-layout.test.ts",
     "test:motion": "node scripts/check-motion-ci-contract.mjs && node scripts/check-waapi-contract.mjs --self-test && tsx src/__tests__/native-motion.test.tsx && tsx src/__tests__/approval-animation.test.tsx",

@@ -3275,6 +3275,15 @@ export const en = {
   "mock.changedFile2Prompt": "Record project context",
   "mock.changedFile1Path": "docs/dev-standard.md",
   "mock.changedFile2Path": ".reasonix/project.md",
+
+  // ── Temper CoWork ──
+  "temper.works": "Works",
+  "temper.workTitlePlaceholder": "Work title",
+  "temper.workGoalPlaceholder": "Goal (optional)",
+  "temper.createWork": "Create work",
+  "temper.creatingWork": "Creating…",
+  "temper.noWorksYet": "No formal works yet. Create one to start.",
+  "temper.projectLabel": "Works — {project}",
 };
 
 export type DictKey = keyof typeof en;

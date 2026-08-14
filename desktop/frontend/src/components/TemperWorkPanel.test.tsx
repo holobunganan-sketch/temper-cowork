@@ -5,6 +5,7 @@ import { JSDOM } from "jsdom";
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { TemperWorkPanel } from "./TemperWorkPanel";
+import { LocaleProvider } from "../lib/i18n";
 import type { TemperWorkView } from "../lib/types";
 
 let passed = 0;
@@ -48,7 +49,7 @@ async function render() {
   const rootEl = document.getElementById("root")!;
   const root = createRoot(rootEl);
   await act(async () => {
-    root.render(<TemperWorkPanel projectID="prj-1" projectName="Demo" />);
+    root.render(<LocaleProvider><TemperWorkPanel projectID="prj-1" projectName="Demo" /></LocaleProvider>);
     // 等待 async ListTemperWorks 完成 + React 状态提交
     await new Promise((r) => setTimeout(r, 50));
   });

@@ -1,7 +1,8 @@
 // TemperWorkPanel 展示当前项目的 Formal Work 列表,并支持创建与状态流转。
 // 它通过 Wails 绑定调用真实 Go 后端(ListTemperWorks/CreateTemperWork/
-// UpdateTemperWorkStatus),不是 mock。
+// UpdateTemperWorkStatus),不是 mock。文案走 i18n 字典(en/zh/zh-TW)。
 import { useCallback, useEffect, useState } from "react";
+import { useI18n } from "../lib/i18n";
 import type { TemperWorkView } from "../lib/types";
 
 interface Props {
@@ -15,6 +16,7 @@ const WORK_STATUSES = [
 ] as const;
 
 export function TemperWorkPanel({ projectID, projectName }: Props) {
+  const { t } = useI18n();
   const [works, setWorks] = useState<TemperWorkView[]>([]);
   const [title, setTitle] = useState("");
   const [goal, setGoal] = useState("");
@@ -61,10 +63,10 @@ export function TemperWorkPanel({ projectID, projectName }: Props) {
   };
 
   return (
-    <div className="temper-work" aria-label="Temper Works">
+    <div className="temper-work" aria-label={t("temper.works")}>
       <header className="temper-work__head">
         <h2 className="temper-work__title">
-          Works{projectName ? ` — ${projectName}` : ""}
+          {t("temper.projectLabel", { project: projectName || "" })}
         </h2>
         <span className="temper-work__count">{works.length}</span>
       </header>
@@ -72,24 +74,24 @@ export function TemperWorkPanel({ projectID, projectName }: Props) {
       <div className="temper-work__create">
         <input
           className="temper-work__input"
-          placeholder="Work title"
+          placeholder={t("temper.workTitlePlaceholder")}
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          aria-label="Work title"
+          aria-label={t("temper.workTitlePlaceholder")}
         />
         <input
           className="temper-work__input"
-          placeholder="Goal (optional)"
+          placeholder={t("temper.workGoalPlaceholder")}
           value={goal}
           onChange={(e) => setGoal(e.target.value)}
-          aria-label="Work goal"
+          aria-label={t("temper.workGoalPlaceholder")}
         />
         <button
           className="temper-work__create-btn"
           onClick={() => void createWork()}
           disabled={creating || !title.trim()}
         >
-          {creating ? "Creating…" : "Create work"}
+          {creating ? t("temper.creatingWork") : t("temper.createWork")}
         </button>
       </div>
 
@@ -97,7 +99,7 @@ export function TemperWorkPanel({ projectID, projectName }: Props) {
 
       <ul className="temper-work__list">
         {works.length === 0 && (
-          <li className="temper-work__empty">No formal works yet. Create one to start.</li>
+          <li className="temper-work__empty">{t("temper.noWorksYet")}</li>
         )}
         {works.map((w) => (
           <li key={w.id} className="temper-work__item">

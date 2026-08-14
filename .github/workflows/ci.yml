@@ -115,6 +115,9 @@ jobs:
       - name: test (temper observability)
         run: pnpm test:temper-observability
 
+      - name: test (temper i18n)
+        run: pnpm test:temper-i18n
+
       - name: test (workspace)
         run: pnpm test:workspace
 

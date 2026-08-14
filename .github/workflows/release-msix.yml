@@ -93,6 +93,9 @@ jobs:
       - name: Verify MSIX signature
         shell: powershell
         run: |
+          # windows-latest 服务账户可写 LocalMachine\Root;信任开发证书后 verify /pa
+          Import-Certificate -FilePath "$env:GITHUB_WORKSPACE\packaging\msix\Temper-Development.cer" `
+            -CertStoreLocation Cert:\LocalMachine\Root | Out-Null
           & "$env:GITHUB_WORKSPACE\scripts\msix\Verify-MSIX.ps1" `
             -Msix "$env:GITHUB_WORKSPACE\dist\Temper-0.3.0.0-windows-x64.msix"
 

@@ -4,7 +4,7 @@
 
 ## 当前阶段
 
-**PHASE F — Formal Work(进行中,milestone/05-formal-work)**
+**PHASE G — CoWork Tools / Evidence / Decision(进行中,milestone/06-cowork-tools)**
 
 ## 里程碑进度
 
@@ -15,8 +15,8 @@
 | C | Reasonix 功能 Parity | DONE | PR #6 merged(df81c8c) |
 | D | CoWork Store | DONE | PR #7 merged(e93d1a5) |
 | E | Project + Chat | DONE | PR #8 merged(d7e3e10) |
-| F | Formal Work | IN_PROGRESS | milestone/05-formal-work |
-| G | CoWork Tools / Evidence / Decision | PENDING | |
+| F | Formal Work | DONE | PR #9 merged(2f2e92f) |
+| G | CoWork Tools / Evidence / Decision | IN_PROGRESS | milestone/06-cowork-tools |
 | H | Artifact / Quality | PENDING | |
 | I | Temper UI 基础 | PENDING | |
 | J | Chat / Work / Advanced UI | PENDING | |

@@ -109,6 +109,9 @@ jobs:
       - name: test (task monitor)
         run: pnpm test:task-monitor
 
+      - name: test (temper work)
+        run: pnpm test:temper-work
+
       - name: test (workspace)
         run: pnpm test:workspace
 

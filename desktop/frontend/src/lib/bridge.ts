@@ -89,6 +89,7 @@ import type {
   RecoveryCleanupResult,
   SessionCatalogBindings,
   TemperProjectView,
+  TemperWorkView,
   PromptHistoryEntry,
   PromptHistoryResult,
   ProviderModelCatalogUpdate,
@@ -618,6 +619,10 @@ export interface AppBindings extends SessionCatalogBindings, HistoryCatalogBindi
   ListTemperProjects(): Promise<TemperProjectView[]>;
   AddTemperProject(workspaceRoot: string, name: string): Promise<void>;
   RemoveTemperProject(workspaceRoot: string): Promise<void>;
+  // ── Temper CoWork Works ──
+  ListTemperWorks(projectID: string): Promise<TemperWorkView[]>;
+  CreateTemperWork(projectID: string, title: string, goal: string, modelRef: string, qualityProfile: string): Promise<TemperWorkView>;
+  UpdateTemperWorkStatus(workID: string, status: string): Promise<void>;
   SetProjectPinned(workspaceRoot: string, pinned: boolean): Promise<void>;
   ReorderProjects(workspaceRoots: string[]): Promise<void>;
   CreateTopic(scope: string, workspaceRoot: string, title: string): Promise<TopicMeta>;
@@ -1891,6 +1896,7 @@ function makeMockApp(): AppBindings {
     return JSON.parse(JSON.stringify(mockProjectTreeForDisplay())) as ProjectNode[];
   };
   let mockTemperProjects: TemperProjectView[] = [];
+  let mockTemperWorks: TemperWorkView[] = [];
   const projectChildren = (node: ProjectNode): ProjectNode[] => Array.isArray(node.children) ? node.children : [];
   const findMockTopic = (topicId: string): ProjectNode | null => {
     for (const parent of mockProjectTree) {
@@ -5292,6 +5298,27 @@ function makeMockApp(): AppBindings {
     },
     async RemoveTemperProject(workspaceRoot: string) {
       mockTemperProjects = mockTemperProjects.filter((p) => p.workspaceRoot !== workspaceRoot);
+    },
+    async ListTemperWorks(projectID: string) {
+      return mockTemperWorks.filter((w) => w.projectId === projectID);
+    },
+    async CreateTemperWork(projectID: string, title: string, goal: string, modelRef: string, _qualityProfile: string) {
+      const w: TemperWorkView = {
+        id: `wk-${mockTemperWorks.length + 1}`,
+        projectId: projectID,
+        title,
+        goal,
+        status: "draft",
+        modelRef,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      mockTemperWorks.push(w);
+      return w;
+    },
+    async UpdateTemperWorkStatus(workID: string, status: string) {
+      const w = mockTemperWorks.find((x) => x.id === workID);
+      if (w) { w.status = status; w.updatedAt = new Date().toISOString(); }
     },
     async SetProjectPinned(workspaceRoot: string, pinned: boolean) {
       setMockProjectPinned(workspaceRoot, pinned);

@@ -2305,6 +2305,8 @@ func (a *App) syncTabWorkspaceRootSpellings() {
 func (a *App) registerProjectRoot(workspaceRoot string) {
 	_ = addProject(workspaceRoot, "")
 	a.syncTabWorkspaceRootSpellings()
+	// Temper:镜像到 CoWork store(失败不阻塞主流程)。
+	_ = a.mirrorProjectToStore(workspaceRoot, "")
 }
 
 // OpenProjectTab builds a controller scoped to workspaceRoot and opens the
@@ -6700,6 +6702,8 @@ func (a *App) RenameProject(workspaceRoot, title string) error {
 	}
 	a.syncTabWorkspaceRootSpellings()
 	a.emitProjectTreeMetadataChanged()
+	// Temper:同步 CoWork store 项目名(失败不阻塞)。
+	_ = a.mirrorProjectToStore(workspaceRoot, title)
 	return nil
 }
 

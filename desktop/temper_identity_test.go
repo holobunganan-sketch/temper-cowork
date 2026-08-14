@@ -101,7 +101,7 @@ func TestTemperDataIsolationFromReasonix(t *testing.T) {
 		t.Fatalf("REASONIX_HOME %q must be under TEMPER_HOME %q (rel=%q err=%v)", abs, homeAbs, rel, err)
 	}
 	// 路径组件中不得出现 reasonix 默认目录名(.reasonix / reasonix)。
-	for _, part := range strings.Split(strings.ToLower(abs), string(filepath.Separator)) {
+	for part := range strings.SplitSeq(strings.ToLower(abs), string(filepath.Separator)) {
 		if part == ".reasonix" || part == "reasonix" {
 			t.Fatalf("REASONIX_HOME %q must not resolve into a reasonix default directory", abs)
 		}

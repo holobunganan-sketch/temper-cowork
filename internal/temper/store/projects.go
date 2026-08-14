@@ -81,6 +81,20 @@ func (s *Store) TouchProject(id string) error {
 	return err
 }
 
+// RenameProject 更新项目显示名。
+func (s *Store) RenameProject(id, name string) error {
+	res, err := s.db.Exec(`UPDATE projects SET name=?, updated_at=? WHERE id=?`,
+		strings.TrimSpace(name), fmtTime(time.Now().UTC()), id)
+	if err != nil {
+		return err
+	}
+	n, _ := res.RowsAffected()
+	if n == 0 {
+		return ErrNotFound
+	}
+	return nil
+}
+
 // RemoveProject 从 Temper 移除项目注册(绝不删除 workspace 目录)。
 func (s *Store) RemoveProject(id string) error {
 	res, err := s.db.Exec(`DELETE FROM projects WHERE id=?`, id)

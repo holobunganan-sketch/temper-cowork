@@ -5138,6 +5138,8 @@ func (a *App) RemoveWorkspace(dir string) error {
 	if err := removeProject(dir); err != nil {
 		return err
 	}
+	// Temper:从 CoWork store 移除项目元数据(失败不阻塞主流程)。
+	_ = a.RemoveTemperProject(dir)
 	// If the removed workspace was the active one, clear the pointer
 	// so we don't leave a stale reference to a deleted project.
 	if loadWorkspace() == dir {

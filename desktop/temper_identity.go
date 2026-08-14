@@ -36,7 +36,6 @@ package main
 import (
 	"os"
 	"path/filepath"
-	"runtime"
 )
 
 const (
@@ -104,9 +103,4 @@ func setDefaultEnv(key, value string) {
 	if _, ok := os.LookupEnv(key); !ok {
 		_ = os.Setenv(key, value)
 	}
-}
-
-// runtimePlatformName 供诊断/遥测显示当前平台(与 Reasonix 平台探测一致)。
-func runtimePlatformName() string {
-	return runtime.GOOS + "/" + runtime.GOARCH
 }

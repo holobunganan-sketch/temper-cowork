@@ -26,7 +26,7 @@
 | N | Defender | DONE | PR #17 merged(2847e9c) |
 | O | MSIX Packaging | DONE | PR #18 merged(4868e40) |
 | P | GitHub MSIX Release | DONE | PR #19 merged(3fd2d53) |
-| Q | RC / v0.3.0 正式 Release | IN_PROGRESS | milestone/16-rc-release |
+| Q | RC / v0.3.0 正式 Release | DONE | v0.3.0 RELEASED (2026-08-14) |
 ## 关键事实
 
 - REASONIX_BASELINE_SHA = `49f24d19702c9542ab50500d590237dc872c4d58`(main-v2, 2026-08-13)

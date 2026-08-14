@@ -1,0 +1,13 @@
+# Temper v0.3.0 — SHA256 校验和
+
+```
+ABEF22B5CC4493D3CAC2EC9548AC369594CDC6DA424D795E95ECC7844A148D49  Temper-0.3.0-windows-x64.msix
+```
+
+## 校验方法
+
+```powershell
+Get-FileHash -Algorithm SHA256 .\Temper-0.3.0-windows-x64.msix
+```
+
+比对输出与上表一致即完整。

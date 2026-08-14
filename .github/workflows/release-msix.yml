@@ -50,12 +50,14 @@ jobs:
       - name: Frontend install + build
         shell: bash
         run: |
-          pnpm --dir frontend install --frozen-lockfile
-          pnpm --dir frontend build
+          pnpm --dir desktop/frontend install --frozen-lockfile
+          pnpm --dir desktop/frontend build
 
       - name: Wails build (Temper.exe)
         shell: bash
-        run: wails build
+        run: |
+          cd desktop
+          wails build
 
       - name: Defender raw EXE scan
         shell: powershell

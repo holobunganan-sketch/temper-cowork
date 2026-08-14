@@ -104,7 +104,7 @@ func TestMigrationRollbackOnFailure(t *testing.T) {
 		t.Fatal(err)
 	}
 	if err := applyMigration(tx, future); err == nil {
-		tx.Rollback()
+		_ = tx.Rollback()
 		t.Fatal("expected applyMigration error for unknown version")
 	}
 	_ = tx.Rollback()
@@ -157,7 +157,7 @@ func TestRestartPreservesData(t *testing.T) {
 func TestConcurrentCreateProjects(t *testing.T) {
 	s := openTestStore(t)
 	done := make(chan error, 8)
-	for i := 0; i < 8; i++ {
+	for i := range 8 {
 		go func(n int) {
 			ws := filepath.Join(t.TempDir(), "ws", string(rune('a'+n)))
 			if err := os.MkdirAll(ws, 0o755); err != nil {
@@ -168,7 +168,7 @@ func TestConcurrentCreateProjects(t *testing.T) {
 			done <- err
 		}(i)
 	}
-	for i := 0; i < 8; i++ {
+	for range 8 {
 		if err := <-done; err != nil {
 			t.Fatalf("concurrent create: %v", err)
 		}

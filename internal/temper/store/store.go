@@ -91,12 +91,12 @@ func (s *Store) migrateFrom(baseline int) error {
 			return err
 		}
 		if err := applyMigration(tx, v); err != nil {
-			tx.Rollback()
+			_ = tx.Rollback()
 			return fmt.Errorf("migration %d: %w", v, err)
 		}
 		now := time.Now().UTC().Format(time.RFC3339)
 		if _, err := tx.Exec(`INSERT INTO schema_migrations(version, applied_at) VALUES(?,?)`, v, now); err != nil {
-			tx.Rollback()
+			_ = tx.Rollback()
 			return err
 		}
 		if err := tx.Commit(); err != nil {
@@ -104,13 +104,6 @@ func (s *Store) migrateFrom(baseline int) error {
 		}
 	}
 	return nil
-}
-
-func max(a, b int) int {
-	if a > b {
-		return a
-	}
-	return b
 }
 
 // applyMigration 按版本应用 schema 变更。迁移必须是幂等的可追加步骤。

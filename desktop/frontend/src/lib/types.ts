@@ -521,6 +521,15 @@ export interface ProjectNode {
   children?: ProjectNode[];
 }
 
+// TemperProjectView 是 Temper CoWork Projects 页使用的项目视图。
+export interface TemperProjectView {
+  id: string;
+  name: string;
+  workspaceRoot: string;
+  createdAt: string;
+  lastOpenedAt: string;
+}
+
 export interface RecoveryLineageMember {
   path: string;
   role: "normal" | "covered_copy" | "adopted" | "preferred" | "diverged" | string;

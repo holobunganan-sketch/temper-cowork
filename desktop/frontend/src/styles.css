@@ -38011,3 +38011,44 @@ body > .mermaid-diagram--fullscreen {
     gap: 4px;
   }
 }
+/* ==========================================================================
+   Temper Design System — Quiet Precision
+   覆盖 Reasonix 基础样式,注入 Temper 品牌身份。保持 Reasonix 布局结构,
+   替换品牌色、字体权重、标语与首页氛围。仅在此文件声明 Temper 专属
+   变量;不修改 Reasonix styles.css。
+   ========================================================================== */
+
+:root {
+  /* Temper 品牌色(暖橙淬火色) */
+  --temper-accent: #d97757;
+  --temper-accent-strong: #e58a6b;
+  --temper-accent-fg: #1a0f0a;
+  --temper-ink: #e8eaed;
+
+  /* 复用为应用主强调色 */
+  --accent: var(--temper-accent);
+  --accent-strong: var(--temper-accent-strong);
+  --accent-fg: var(--temper-accent-fg);
+  --accent-text: var(--temper-accent-fg);
+  --grad: linear-gradient(120deg, var(--temper-accent), var(--temper-accent-strong));
+}
+
+/* 品牌标记替换:sidebar 顶部 logo */
+.sidebar__brand-logo {
+  /* Temper wordmark 以 img 引入,高度由 Reasonix 布局控制 */
+  content: normal;
+}
+
+/* 首页氛围:欢迎区品牌点缀 */
+.welcome-creation__headline,
+.welcome__title {
+  letter-spacing: -0.02em;
+}
+
+/* 密度:紧凑但可读 */
+.sidebar__section-title {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+}

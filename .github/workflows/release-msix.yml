@@ -71,25 +71,17 @@ jobs:
         run: |
           & "$env:GITHUB_WORKSPACE\scripts\msix\Build-MSIX.ps1" -Version "0.3.0.0" -OutputName "Temper-0.3.0-windows-x64.msix"
 
-      - name: Decode signing PFX from secrets
+      - name: Sign MSIX
         shell: powershell
         env:
           PFX_B64: ${{ secrets.TEMPER_MSIX_PFX_B64 }}
           PFX_PASSWORD: ${{ secrets.TEMPER_MSIX_PFX_PASSWORD }}
         run: |
+          # 在同一步骤内解码 PFX,并单行调用 Sign-MSIX.ps1 避免反引号续行问题。
           if (-not $env:PFX_B64) { throw "TEMPER_MSIX_PFX_B64 secret is not configured" }
           $pfxPath = Join-Path $env:RUNNER_TEMP "temper-signing.pfx"
           [System.IO.File]::WriteAllBytes($pfxPath, [Convert]::FromBase64String($env:PFX_B64))
-          Write-Output "PFX_PATH=$pfxPath" >> $env:GITHUB_ENV
-          Write-Output "PFX_PW=$env:PFX_PASSWORD" >> $env:GITHUB_ENV
-
-      - name: Sign MSIX
-        shell: powershell
-        run: |
-          & "$env:GITHUB_WORKSPACE\scripts\msix\Sign-MSIX.ps1" `
-            -Msix "$env:GITHUB_WORKSPACE\dist\Temper-0.3.0.0-windows-x64-unsigned.msix" `
-            -OutputName "Temper-0.3.0-windows-x64.msix"
-            -PfxPath "$env:PFX_PATH" -PfxPassword "$env:PFX_PW"
+          & "$env:GITHUB_WORKSPACE\scripts\msix\Sign-MSIX.ps1" -Msix "$env:GITHUB_WORKSPACE\dist\Temper-0.3.0.0-windows-x64-unsigned.msix" -OutputName "Temper-0.3.0-windows-x64.msix" -PfxPath "$pfxPath" -PfxPassword "$env:PFX_PASSWORD"
 
       - name: Verify MSIX signature
         shell: powershell

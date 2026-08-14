@@ -1,19 +1,19 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "reasonix-desktop",
-  "outputfilename": "reasonix-desktop",
+  "name": "temper",
+  "outputfilename": "Temper",
   "frontend:install": "pnpm install --config.confirmModulesPurge=false",
   "frontend:build": "pnpm build",
   "frontend:dev:watcher": "pnpm dev",
   "frontend:dev:serverUrl": "auto",
   "author": {
-    "name": "esengine"
+    "name": "Temper"
   },
   "info": {
-    "companyName": "Reasonix",
-    "productName": "Reasonix",
-    "productVersion": "0.0.0",
-    "copyright": "Copyright © 2026 Reasonix Contributors",
-    "comments": "Reasonix desktop — a Wails shell around the Go kernel."
+    "companyName": "Temper",
+    "productName": "Temper",
+    "productVersion": "0.3.0",
+    "copyright": "Copyright © 2026 Temper",
+    "comments": "Temper — Shape intent. Ship work."
   }
 }

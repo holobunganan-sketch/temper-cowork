@@ -19,6 +19,15 @@
 - Regression:本地 `pnpm test:motion` 通过(9 passed,含契约自检)。
 - 后续 sync 注意:upstream 若改动该脚本,需重新评估 job 结构断言。
 
+### P2:appidentity.AppUserModelID 改为 Temper 身份
+
+- 文件:internal/appidentity/identity.go、identity_test.go
+- 提交:milestone/01-identity-isolation(PHASE B)
+- 问题:Temper 是独立产品,Windows 任务栏/通知身份必须与 Reasonix 区分。
+- 修改:`AppUserModelID` 从 `"Reasonix"` 改为 `"Temper.Cowork.Desktop"`(与 MSIX package identity 一致);同步更新 identity_test.go 断言。
+- Regression:`go test ./internal/appidentity/` 通过。
+- 后续 sync 注意:upstream 若改动该值需重新评估。
+
 ## 同步提醒
 
 在 REASONIX_SYNC.md 中跟踪:本分支与 upstream main-v2 的偏差(diff 计数)。任何 patch 都会增加后续 sync 的手动成本。

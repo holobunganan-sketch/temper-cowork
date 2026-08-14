@@ -4,15 +4,15 @@
 
 ## 当前阶段
 
-**PHASE A — Bootstrap(DONE ✅ CI 全绿)**
+**PHASE C — Reasonix 功能 Parity(进行中,milestone/02-parity)**
 
 ## 里程碑进度
 
 | Phase | 内容 | 状态 | 备注 |
 |-------|------|------|------|
-| A | Bootstrap(基线导入/控制文件/CI/首推) | DONE | main CI 全绿(run 31722439468,4 jobs success) |
-| B | 身份与数据隔离 | NEXT | 创建 milestone/01-identity-isolation |
-| C | Reasonix 功能 Parity | PENDING | |
+| A | Bootstrap | DONE | main CI 全绿 |
+| B | 身份与数据隔离 | DONE | PR #5 merged(361d731) |
+| C | Reasonix 功能 Parity | IN_PROGRESS | milestone/02-parity |
 | D | CoWork Store | PENDING | |
 | E | Project + Chat | PENDING | |
 | F | Formal Work | PENDING | |

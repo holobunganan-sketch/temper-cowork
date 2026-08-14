@@ -4,7 +4,7 @@
 
 ## 当前阶段
 
-**PHASE C — Reasonix 功能 Parity(进行中,milestone/02-parity)**
+**PHASE D — Temper CoWork Store(进行中,milestone/03-cowork-store)**
 
 ## 里程碑进度
 
@@ -12,8 +12,8 @@
 |-------|------|------|------|
 | A | Bootstrap | DONE | main CI 全绿 |
 | B | 身份与数据隔离 | DONE | PR #5 merged(361d731) |
-| C | Reasonix 功能 Parity | IN_PROGRESS | milestone/02-parity |
-| D | CoWork Store | PENDING | |
+| C | Reasonix 功能 Parity | DONE | PR #6 merged(df81c8c) |
+| D | CoWork Store | IN_PROGRESS | milestone/03-cowork-store |
 | E | Project + Chat | PENDING | |
 | F | Formal Work | PENDING | |
 | G | CoWork Tools / Evidence / Decision | PENDING | |

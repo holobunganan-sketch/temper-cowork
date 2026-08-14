@@ -139,6 +139,10 @@ type App struct {
 	catalogRebuilding  atomic.Bool
 	shuttingDown       atomic.Bool
 
+	// temperCoWork 是 Temper CoWork 业务库(Project/Work/Evidence/Artifact)。
+	// 懒加载;shutdown 时关闭。
+	temperCoWork temperStore
+
 	// taskCtrl is the process-wide task-monitor control service (lazy; see
 	// taskControl). One instance serializes control operations in-process.
 	taskCtrl     *taskmonitor.ControlService
@@ -1000,6 +1004,7 @@ func (a *App) shutdown(context.Context) {
 	a.shuttingDown.Store(true)
 	a.cancelAllTabBuilds()
 	a.stopSessionCatalog(250 * time.Millisecond)
+	a.temperCoWork.close()
 	completeDesktopShutdown(a.lifecycle.tracker, a.shutdownBody)
 }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" role="img" aria-label="Temper">
+  <defs>
+    <linearGradient id="tg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e58a6b"/>
+      <stop offset="1" stop-color="#d97757"/>
+    </linearGradient>
+  </defs>
+  <!-- 品牌标记:淬火/成型(Shape intent)的抽象符号 -->
+  <path fill="url(#tg)" d="M30 118 L30 42 Q30 30 42 30 L70 30 L70 74 Q70 88 84 88 L118 88 L118 30 L146 30 Q158 30 158 42 L158 118 L118 118 L118 96 L84 96 Q70 96 70 110 L70 118 Z"/>
+  <path fill="#e8eaed" d="M190 118 L190 30 L220 30 L220 92 L272 92 L272 118 Z"/>
+  <path fill="#e8eaed" d="M300 118 L300 30 L360 30 Q386 30 386 52 L386 96 Q386 118 360 118 Z M330 52 L330 96 L360 96 Q362 96 362 94 L362 54 Q362 52 360 52 Z"/>
+  <path fill="#e8eaed" d="M414 118 L414 30 L474 30 Q500 30 500 52 L500 96 Q500 118 474 118 Z M444 52 L444 96 L474 96 Q476 96 476 94 L476 54 Q476 52 474 52 Z"/>
+  <path fill="#e8eaed" d="M528 118 L528 30 L612 30 L612 52 L558 52 L558 68 L606 68 L606 88 L558 88 L558 118 Z"/>
+</svg>

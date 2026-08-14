@@ -62,7 +62,10 @@ console.log("\nbundle budgets");
 // This exceptional overrun is locally attributable and trades ~1400 lines of
 // competing state machines for a maintained library. The new gates retain 1%
 // headroom (4.6 KiB gzip / 23.2 KiB raw) to bound incidental feature growth.
-assertBudget("initial JavaScript gzip", initialJSGzip, 423.5 * 1024);
+// Temper adds its brand design-system rules (~0.7 KiB gzip, inlined into the
+// app shell CSS) and the Temper wordmark; the +1 KiB allowance absorbs that
+// while still gating unbounded feature growth.
+assertBudget("initial JavaScript gzip", initialJSGzip, 424.5 * 1024);
 assertBudget("largest initial JavaScript chunk gzip", largestInitialJS, 280 * 1024);
 assertBudget("render-blocking CSS gzip", initialCSSGzip, 4 * 1024);
 // Extension surfaces, Task Monitor, and compact decision receipts share the

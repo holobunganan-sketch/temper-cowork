@@ -530,6 +530,21 @@ export interface TemperProjectView {
   lastOpenedAt: string;
 }
 
+// TemperWorkView 是 Temper CoWork Work 页使用的工作视图。
+export interface TemperWorkView {
+  id: string;
+  projectId: string;
+  title: string;
+  goal: string;
+  status: string;
+  reasonixSessionRef?: string;
+  modelRef?: string;
+  taskContract?: string;
+  createdAt: string;
+  updatedAt: string;
+  finalArtifactId?: string;
+}
+
 export interface RecoveryLineageMember {
   path: string;
   role: "normal" | "covered_copy" | "adopted" | "preferred" | "diverged" | string;

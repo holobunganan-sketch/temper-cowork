@@ -38052,3 +38052,128 @@ body > .mermaid-diagram--fullscreen {
   font-size: 10px;
   font-weight: 600;
 }
+
+/* ===== Temper Work Panel ===== */
+.temper-work {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  height: 100%;
+  overflow-y: auto;
+}
+.temper-work__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.temper-work__title {
+  font-size: 15px;
+  font-weight: 650;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+.temper-work__count {
+  font-size: 11px;
+  color: var(--fg-faint);
+  background: var(--bg-elev-2);
+  border-radius: 10px;
+  padding: 1px 8px;
+}
+.temper-work__create {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.temper-work__input {
+  flex: 1 1 160px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  color: var(--fg);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+}
+.temper-work__create-btn {
+  background: var(--grad);
+  color: var(--accent-fg);
+  border: none;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.temper-work__create-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.temper-work__error {
+  color: #e57373;
+  font-size: 12px;
+}
+.temper-work__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.temper-work__item {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.temper-work__item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.temper-work__item-title {
+  font-weight: 600;
+  font-size: 13px;
+}
+.temper-work__badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 4px;
+  padding: 1px 6px;
+  background: var(--bg-elev-2);
+  color: var(--fg-faint);
+}
+.temper-work__badge--running { background: rgba(217,119,87,0.2); color: var(--accent-strong); }
+.temper-work__badge--completed { background: rgba(94,201,136,0.18); color: #5ec988; }
+.temper-work__badge--failed { background: rgba(229,115,115,0.18); color: #e57373; }
+.temper-work__item-goal {
+  font-size: 12px;
+  color: var(--fg-faint);
+  margin: 6px 0 0;
+}
+.temper-work__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.temper-work__action {
+  font-size: 11px;
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  color: var(--fg-soft);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+.temper-work__action:hover {
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+.temper-work__empty {
+  color: var(--fg-faint);
+  font-size: 12px;
+  padding: 12px 0;
+  text-align: center;
+}

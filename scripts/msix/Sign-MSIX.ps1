@@ -12,7 +12,8 @@ param(
   [Parameter(Mandatory = $true)][string]$Msix,
   [string]$Thumbprint,
   [string]$PfxPath,
-  [string]$PfxPassword
+  [string]$PfxPassword,
+  [string]$OutputName = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -28,6 +29,9 @@ if (-not (Test-Path $signTool)) { throw "SignTool.exe not found under $kitsRoot"
 
 $output = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($Msix),
   ([System.IO.Path]::GetFileName($Msix) -replace "-unsigned", ""))
+if ($OutputName -ne "") {
+  $output = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($Msix), $OutputName)
+}
 
 $sigParams = @("sign", "/fd", "SHA256")
 if ($PfxPath -and (Test-Path $PfxPath)) {

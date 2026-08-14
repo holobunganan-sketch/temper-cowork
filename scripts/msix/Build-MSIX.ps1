@@ -15,7 +15,8 @@
 #   dist/Temper-<ver>-windows-x64-unsigned.msix
 
 param(
-  [string]$Version = "0.3.0.0"
+  [string]$Version = "0.3.0.0",
+  [string]$OutputName = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -76,8 +77,11 @@ if (-not (Test-Path $makeAppx)) { throw "MakeAppx.exe not found under $kitsRoot"
 
 # --- 7. MakeAppx pack ---
 $unsigned = Join-Path $distDir "Temper-$Version-windows-x64-unsigned.msix"
+# OutputName 覆盖发行名(如 0.3.0 → Temper-0.3.0-windows-x64.msix);默认用 Version。
+if ($OutputName -eq "") { $OutputName = $Version }
 if (Test-Path $unsigned) { Remove-Item -Force $unsigned }
 $p = Start-Process -FilePath $makeAppx -ArgumentList @("pack", "/d", $staging, "/p", $unsigned) -Wait -PassThru -NoNewWindow
 if ($p.ExitCode -ne 0) { throw "MakeAppx failed (exit $($p.ExitCode))" }
 Write-Host "Unsigned MSIX: $unsigned ($([math]::Round((Get-Item $unsigned).Length / 1MB, 1)) MB)"
+Write-Host "OUTPUT_NAME=$OutputName"
 Write-Host "BUILD_MSIX_OK"

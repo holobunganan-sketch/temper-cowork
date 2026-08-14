@@ -88,6 +88,7 @@ import type {
   RecoveryCleanupRequest,
   RecoveryCleanupResult,
   SessionCatalogBindings,
+  TemperProjectView,
   PromptHistoryEntry,
   PromptHistoryResult,
   ProviderModelCatalogUpdate,
@@ -613,6 +614,10 @@ export interface AppBindings extends SessionCatalogBindings, HistoryCatalogBindi
   ListProjectTree(): Promise<ProjectNode[]>;
   RenameProject(workspaceRoot: string, title: string): Promise<void>;
   SetProjectColor(workspaceRoot: string, color: string): Promise<void>;
+  // ── Temper CoWork Projects ──
+  ListTemperProjects(): Promise<TemperProjectView[]>;
+  AddTemperProject(workspaceRoot: string, name: string): Promise<void>;
+  RemoveTemperProject(workspaceRoot: string): Promise<void>;
   SetProjectPinned(workspaceRoot: string, pinned: boolean): Promise<void>;
   ReorderProjects(workspaceRoots: string[]): Promise<void>;
   CreateTopic(scope: string, workspaceRoot: string, title: string): Promise<TopicMeta>;
@@ -1885,6 +1890,7 @@ function makeMockApp(): AppBindings {
     if (mockProjectTree.length === 0) ensureMockGlobalFolder();
     return JSON.parse(JSON.stringify(mockProjectTreeForDisplay())) as ProjectNode[];
   };
+  let mockTemperProjects: TemperProjectView[] = [];
   const projectChildren = (node: ProjectNode): ProjectNode[] => Array.isArray(node.children) ? node.children : [];
   const findMockTopic = (topicId: string): ProjectNode | null => {
     for (const parent of mockProjectTree) {
@@ -5268,6 +5274,24 @@ function makeMockApp(): AppBindings {
           ? { ...tab, projectColor: node.projectColor }
         : tab,
       );
+    },
+    // ── Temper CoWork Projects (mock) ──
+    async ListTemperProjects() {
+      return mockTemperProjects;
+    },
+    async AddTemperProject(workspaceRoot: string, name: string) {
+      if (!mockTemperProjects.some((p) => p.workspaceRoot === workspaceRoot)) {
+        mockTemperProjects.push({
+          id: `prj-${mockTemperProjects.length + 1}`,
+          name: name.trim() || workspaceRoot,
+          workspaceRoot,
+          createdAt: new Date().toISOString(),
+          lastOpenedAt: "",
+        });
+      }
+    },
+    async RemoveTemperProject(workspaceRoot: string) {
+      mockTemperProjects = mockTemperProjects.filter((p) => p.workspaceRoot !== workspaceRoot);
     },
     async SetProjectPinned(workspaceRoot: string, pinned: boolean) {
       setMockProjectPinned(workspaceRoot, pinned);

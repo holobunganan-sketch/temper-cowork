@@ -23,7 +23,7 @@ jobs:
           cache: true
           cache-dependency-path: desktop/go.sum
 
-      - uses: pnpm/action-setup@v6.0.9
+      - uses: pnpm/action-setup@v6.0.10
         with:
           version: 10
           run_install: false
@@ -109,7 +109,7 @@ jobs:
           Copy-Item "$env:GITHUB_WORKSPACE\packaging\msix\INSTALL-MSIX.md" "$env:GITHUB_WORKSPACE\dist\"
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref_name }}
           name: Temper ${{ github.ref_name }}
